@@ -10,12 +10,12 @@
 
 
 # Вот пример функции, которая выводит приветствие на экран:
-def say_hello():
+def hello():
     print("Привет!")
 
 
 # Вызов функции
-say_hello()
+hello()
 
 
 
@@ -39,7 +39,7 @@ def add_numbers(a, b):
 
 # Вызов функции и вывод результата
 result = add_numbers(3, 5)
-print(result)
+print(result) # 8
 
 
 
