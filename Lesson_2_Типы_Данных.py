@@ -32,7 +32,7 @@ is_closed = False  # Булево значение (bool)
 
 # Вывод типов данных
 print(type(x))  # <class 'int'>
-print(type(pi))  # <class 'float'>
+print(type(PI))  # <class 'float'>
 print(type(complex_number))  # <class 'complex'>
 
 # Ввод данных с клавиатуры и преобразование типов
