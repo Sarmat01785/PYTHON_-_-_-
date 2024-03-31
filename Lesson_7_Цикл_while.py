@@ -1,21 +1,17 @@
 # Цикл while
-# после каждого ввода сайта, программа будет запрашивать ввод сайта.
+# Программа запрашивает ввод адреса сайта и открывает его в браузере.
+# Чтобы завершить программу, пользователь должен ввести "Завершить".
 
-import os
+import webbrowser
 
+print("Введите 'Завершить' для выхода из программы.")
 while True:
-    website = input("Введите адрес сайта\n ")
-    if website == "Завершить":
+    website = input("Введите адрес сайта: ")
+    if website.lower() == "завершить":  # .lower() позволяет принимать "Завершить" в любом регистре
         break
-    if "https://" in website:
-        os.system("start " + website)
-        print("if")
-    elif "www." in website:
-        website = "https://" + website
-        os.system("start " + website)
-        print("elif")
-    else:
-        website = "https://www." + website
-        os.system("start " + website)
-        print("else")
-
+    if "https://" not in website:
+        if "www." not in website:
+            website = f"https://www.{website}"  # Предполагаем, что адрес должен начинаться с https://www.
+        else:
+            website = f"https://{website}"  # Добавляем только префикс https://
+    webbrowser.open(website)
