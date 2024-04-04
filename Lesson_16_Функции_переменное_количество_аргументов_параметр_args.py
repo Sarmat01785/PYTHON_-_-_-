@@ -1,35 +1,45 @@
-# Функции переменное количество аргументов, параметр *args
-'''
-Функции с переменным количеством аргументов позволяют передавать произвольное 
-количество аргументов в функцию. В Python для этого используется параметр *args.
+# Функции с переменным количеством аргументов в Python
+"""
+В Python функции могут быть определены так, чтобы принимать переменное количество аргументов.
+Это достигается с помощью параметра *args.
+"""
 
-Когда вы определяете функцию и указываете *args в качестве параметра, это означает, 
-что функция может принимать любое количество аргументов (включая ноль) 
-и они будут доступны внутри функции в виде кортежа.
-'''
-# пример:
+"""
+Использование *args
+
+Параметр *args позволяет функции принимать любое количество позиционных аргументов в виде кортежа.
+Внутри функции аргументы, переданные через *args, доступны как кортеж.
+"""
+
+
+# Пример функции с *args
+
 def print_arguments(*args):
     for arg in args:
         print(arg)
 
+
 print_arguments('Hello', 'world', '!')
-'''
-В этом примере функция print_arguments принимает произвольное количество аргументов, 
-используя параметр *args. Затем она перебирает все переданные аргументы и выводит их на экран.
-В результате выполнения этого кода будет выведено:
+"""
+Вызов print_arguments('Hello', 'world', '!') выведет:
 Hello
 world
-! 
-'''
+!
+"""
 
 
-# Еще одна полезная возможность использования *args - передача аргументов другой функции. 
-# Рассмотрим следующий пример:
+"""
+Передача аргументов другой функции
+
+Функции, принимающие *args, могут передавать эти аргументы другим функциям.
+"""
+
+
+# Примеры функций для сложения и умножения
+
 def add_numbers(*args):
-    result = 0
-    for num in args:
-        result += num
-    return result
+    return sum(args)
+
 
 def multiply_numbers(*args):
     result = 1
@@ -37,138 +47,67 @@ def multiply_numbers(*args):
         result *= num
     return result
 
+
 numbers = (2, 4, 6)
-sum_result = add_numbers(*numbers)
-product_result = multiply_numbers(*numbers)
+print(add_numbers(*numbers))  # Вывод: 12
+print(multiply_numbers(*numbers))  # Вывод: 48
 
-print(sum_result)  # Output: 12
-print(product_result)  # Output: 48
-'''
-Здесь мы определяем две функции: add_numbers и multiply_numbers, 
-обе принимают произвольное количество аргументов. 
-Затем мы создаем кортеж numbers и передаем его в качестве аргументов в обе функции, используя оператор *. 
-После этого мы выводим результаты сложения и умножения аргументов на экран.
-'''
+"""
+Объединение уникальных элементов из нескольких списков
+Можно использовать *args для создания функции, которая объединяет уникальные элементы из нескольких списков.
+"""
 
 
+# Функция для объединения уникальных элементов
+
+def exclusive_item(*args):
+    unique_items = set()
+    for sequence in args:
+        unique_items.update(sequence)
+    return list(unique_items)
 
 
+# Пример использования
+z = [9, 8, 7]
+x = [8, 8, 9, 7, 6, 5]
+c = [1, 2, 3, 4, 5, 6, 7, 7]
+
+print(exclusive_item(z, x, c))  # Вывод: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+"""
+Сортировка результата
+Функция может также принимать ключевой аргумент для опции сортировки результата.
+"""
 
 
+# Функция с опцией сортировки
+
+def exclusive_item(*args, key=False):
+    unique_items = set()
+    for sequence in args:
+        unique_items.update(sequence)
+    result = list(unique_items)
+    if key:
+        result.sort()
+    return result
 
 
+# Пример использования с ключом сортировки
+print(exclusive_item(z, x, c, key=True))  # Выведет отсортированный список
 
-# def name(a):
-#     print(a) # 7
-# name(7)
+"""
+Использование вместе с другими параметрами
 
-
-# def name(*a):
-#     print(a) # (7, 9, 8, 7)
-# name(7, 9, 8, 7)
-
-
-# def name(*args):
-#     print(args) # () пустой картеж
-# name()
-
-# def name(h, *args):
-#     print(h)    # 1
-#     print(args) # (2, 3)
-# name(1, 2, 3)
-
-# def name(h, g, *args):
-#     print(h)    # 1
-#     print(g)    # 2
-#     print(args) # (3,)
-# name(1, 2, 3)
+ *args можно комбинировать с обычными позиционными параметрами и ключевыми параметрами.
+"""
 
 
-# def name(h=1, g=5, *args):
-#     print(h)    # 1
-#     print(g)    # 2
-#     print(args) # (3,)
-# name(1, 2, 3)
+# Пример комбинированного использования
 
-# def name(h=1, g=5, *args, key): # Ключивые параметры записываются после *args
-#     print(h)    # 1
-#     print(g)    # 2
-#     print(args) # (3, 5, 6)
-#     print(key)  # 10
-# name(1, 2, 3, 5, 6, key=10)
+def greet(name, *args):
+    print(f"Hello, {name}!")
+    for arg in args:
+        print(f"Also hello to {arg}")
 
 
-# def exclusiv_item(*args):
-#     new_list = []
-#     for i in args:
-#         for y in i:
-#             if y not in new_list:
-#                 new_list.append(y)
-            
-        
-#     return new_list
-
-# z = [9, 8, 7]
-# x =[8, 8, 9, 7, 6, 5]
-# c = [1, 2, 3, 4, 5, 6, 7, 7]
-
-# t = exclusiv_item(z, x, c)
-# print(t)  # [9, 8, 7, 6, 5, 1, 2, 3, 4]
-
-
-
-# def exclusiv_item(*args):
-#     new_list = []
-#     for i in args:
-#         for y in i:
-#             if y not in new_list:
-#                 new_list.append(y)
-            
-        
-#     return new_list
-
-# z = [9, 8, 7]
-# x =[8, 8, 9, 7, 6, 5]
-# c = [1, 2, 3, 4, 5, 6, 7, 7]
-
-# t = exclusiv_item(z, x)
-# print(t)  # [9, 8, 7, 6, 5]
-
-
-# def exclusiv_item(*args):
-#     new_list = []
-#     for i in args:
-#         for y in i:
-#             if y not in new_list:
-#                 new_list.append(y)
-            
-        
-#     return new_list
-
-# z = [9, 8, 7]
-# x =[8, 8, 9, 7, 6, 5]
-# c = [1, 2, 3, 4, 5, 6, 7, 7]
-
-# t = exclusiv_item()
-# print(t)  # [] пустой список
-
-
-# def exclusiv_item(*args, key=False):
-#     new_list = []
-#     for i in args:
-#         for y in i:
-#             if y not in new_list:
-#                 new_list.append(y)
-#     if key == True:
-#         new_list.sort
-        
-            
-        
-#     return new_list
-
-# z = [9, 8, 7]
-# x =[8, 8, 9, 7, 6, 5]
-# c = [1, 2, 3, 4, 5, 6, 7, 7]
-
-# t = exclusiv_item(z, x, c, key=True)
-# print(t)  # [9, 8, 7, 6, 5, 1, 2, 3, 4]
+greet("Alice", "Bob", "Charlie")  # Приветствует Alice, а затем каждого из args
