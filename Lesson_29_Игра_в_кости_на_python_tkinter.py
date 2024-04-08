@@ -16,6 +16,7 @@ dice_label.pack(pady=10)
 result_label = tk.Label(window, text="", font=("Arial", 18))
 result_label.pack(pady=10)
 
+
 # Функция для броска костей
 def roll_dice():
     # Генерируем случайные числа от 1 до 6
@@ -25,13 +26,13 @@ def roll_dice():
     # Обновляем текст на метке с результатом
     result_label.config(text=f"Выпало {dice1} и {dice2}!")
 
+
 # Создаем кнопку для броска костей
 roll_button = tk.Button(window, text="Бросить кости", command=roll_dice)
 roll_button.pack(pady=10)
 
 # Запускаем главный цикл окна
 window.mainloop()
-
 
 # from tkinter import *
 # import random
