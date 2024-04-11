@@ -1,181 +1,31 @@
-# Генераторы списков, словарей, множеств
-"""
-Генераторы в Python позволяют создавать списки, словари и множества с помощью компактного и элегантного синтаксиса. 
-Они позволяют нам избежать использования циклов и явного создания временных переменных для заполнения этих структур данных.
+# Использование comprehensions в Python для создания новых коллекций из существующих
 
-Генераторы списков в Python позволяют создавать списки на основе других списков или итерируемых объектов. 
-Синтаксис генератора списков состоит из квадратных скобок, внутри которых мы указываем выражение для элементов списка, 
-за которым следует цикл для генерации этих элементов.
-"""
-# Например:
-numbers = [1, 2, 3, 4, 5]
-squared_numbers = [x**2 for x in numbers]
-print(squared_numbers) # [1, 4, 9, 16, 25]
+# Исходный список чисел
+h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5, -2]
 
-"""
-В этом примере мы создаем список squared_numbers, который содержит квадраты чисел из списка numbers. 
-Результат будет [1, 4, 9, 16, 25].
-"""
+# Создание нового списка, где каждое четное число умножено на 2
+even_numbers_doubled = [x * 2 for x in h if x % 2 == 0]
+print(even_numbers_doubled)  # Выведет: [16, 8, 12, 4, -4]
 
+# То же самое, но только с положительными числами
+positive_even_numbers_doubled = [x * 2 for x in h if x % 2 == 0 and x > 0]
+print(positive_even_numbers_doubled)  # Выведет: [16, 8, 12, 4]
 
-"""
-Генераторы словарей в Python позволяют создавать словари на основе итерируемых объектов. 
-Синтаксис генератора словарей состоит из фигурных скобок, внутри которых мы указываем выражение 
-для ключей и значений словаря, разделенных двоеточием, за которым следует цикл для генерации этих пар. 
-"""
-# Например:
-names = ['Alice', 'Bob', 'Charlie']
-name_lengths = {name: len(name) for name in names}
-print(name_lengths) # {'Alice': 5, 'Bob': 3, 'Charlie': 7}
+# Использование os.walk() для поиска всех файлов в корневой директории "C:\"
 
-"""
-В этом примере мы создаем словарь name_lengths, где ключами являются имена из списка names, 
-а значениями - их длины. Результат будет {'Alice': 5, 'Bob': 3, 'Charlie': 7}.
-"""
+import os
 
+all_files = [os.path.join(root, name) for root, dirs, files in os.walk("C:\\") for name in files]
+print(f"Найдено файлов: {len(all_files)}")
 
-"""
-Генераторы множеств в Python позволяют создавать множества на основе итерируемых объектов. 
-Синтаксис генератора множества также состоит из фигурных скобок, внутри которых мы указываем 
-выражение для элементов множества, за которым следует цикл для генерации этих элементов. 
-"""
-# Например:
-numbers = [1, 2, 3, 4, 5, 5]
-unique_numbers = {x for x in numbers}
-print(unique_numbers) # {1, 2, 3, 4, 5}
+# Поиск всех файлов с расширением '.txt' в корневой директории "C:\"
+txt_files = [os.path.join(root, name) for root, dirs, files in os.walk("C:\\") for name in files if
+             name.endswith('.txt')]
+print(f"Найдено .txt файлов: {len(txt_files)}")
 
-"""
-В этом примере мы создаем множество unique_numbers, которое содержит только уникальные элементы из списка numbers. 
-Результат будет {1, 2, 3, 4, 5}.
-"""
-
-# Генераторы списков, словарей и множеств позволяют нам создавать новые структуры
-# данных на основе существующих данных с минимальным количеством кода.
-# Они являются мощным инструментом в языке Python и рекомендуются для использования, когда это возможно.
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5]
-
-# new_h = []
-# for x in h:
-#     new_h.append(x * 2)
-# print(new_h) # [18, 16, 14, 8, 10, 12, 6, 4, 2, 10, 10]
-
-# new_h2 = [x * 2 for x in h]
-# print(new_h2) # [18, 16, 14, 8, 10, 12, 6, 4, 2, 10, 10]
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5]
-
-# new_h = []
-# for x in h:
-#     new_h.append(x * 2)
-# print(new_h) # [18, 16, 14, 8, 10, 12, 6, 4, 2, 10, 10]
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5]
-# new_h2 = [x * 2 for x in h] # Список
-# z = {x * 2 for x in h} # Множество
-# f = {x: x * 2 for x in h} # Словарь
-# print(new_h2) # [18, 16, 14, 8, 10, 12, 6, 4, 2, 10, 10]
-# print(z) # {2, 4, 6, 8, 10, 12, 14, 16, 18}
-# print(f) # {9: 18, 8: 16, 7: 14, 4: 8, 5: 10, 6: 12, 3: 6, 2: 4, 1: 2}
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5]
-# # n = [x * 2 for x in h] # Список
-# # z = {x * 2 for x in h} # Множество
-# # f = {x: x * 2 for x in h} # Словарь
-# new_h = []
-# for x in h:
-#     if x % 2 == 0:
-#         new_h.append(x)
-# print(new_h) # [8, 4, 6, 2]
-
-
-# g = [x for x in h if x % 2 == 0]
-# print(g) # [8, 4, 6, 2]
-# print(type(g)) # <class 'list'>
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5, -2]
-# # n = [x * 2 for x in h] # Список
-# # z = {x * 2 for x in h} # Множество
-# # f = {x: x * 2 for x in h} # Словарь
-# # g = [x * 2 for x in h if x % 2 == 0] # Список
-# new_h = []
-# for x in h:
-#     if x % 2 == 0:
-#         new_h.append(x * 2)
-# print(new_h) # [16, 8, 12, 4, -4]
-
-
-# g = [x * 2 for x in h if x % 2 == 0 and x > 0]
-# print(g) # [16, 8, 12, 4]
-# print(type(g)) # <class 'list'>
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5, -2]
-# # n = [x * 2 for x in h] # Список
-# # z = {x * 2 for x in h} # Множество
-# # f = {x: x * 2 for x in h} # Словарь
-# # g = [x * 2 for x in h if x % 2 == 0] # Список
-# new_h = []
-# for x in h:
-#     if x % 2 == 0:
-#         new_h.append(x * 2)
-# print(new_h) # [16, 8, 12, 4, -4]
-
-
-# g = [x * 2 for x in h if x % 2 == 0 and x > 0]
-# print(g) # [16, 8, 12, 4]
-# print(type(g)) # <class 'list'>
-
-
-# import os
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5, -2]
-# # n = [x * 2 for x in h] # Список
-# # z = {x * 2 for x in h} # Множество
-# # f = {x: x * 2 for x in h} # Словарь
-# # g = [x * 2 for x in h if x % 2 == 0] # Список
-
-# g = [os.path.join(z, i) for z, x, c in os.walk("C:\\") for i in c]
-# print(len(g))
-
-
-
-# import os
-
-
-# h = [9, 8, 7, 4, 5, 6, 3, 2, 1, 5, 5, -2]
-# # n = [x * 2 for x in h] # Список
-# # z = {x * 2 for x in h} # Множество
-# # f = {x: x * 2 for x in h} # Словарь
-# # g = [x * 2 for x in h if x % 2 == 0] # Список
-
-# g = [os.path.join(z, i) for z, x, c in os.walk("C:\\") for i in c if '.tet' in i]
-# print(len(g))
-# print(g)
-
-
-
-
-# n = [x * 2 for x in h] # Список
-# z = {x * 2 for x in h} # Множество
-# f = {x: x * 2 for x in h} # Словарь
-# g = [x * 2 for x in h if x % 2 == 0] # Список
-# g = [os.path.join(z, i) for z, x, c in os.walk("C:\\") for i in c if '.tet' in i]
-
+# Исходный словарь с ценами
 price = {'meat': 2, 'bread': 1, 'potato': 0.5, 'water': 0.2}
 
-new_price = {}
-for i in price.keys():
-    new_price[i] = round(price[i] * 0.85, 2)
-    
-print(new_price) # {'meat': 1.7, 'bread': 0.85, 'potato': 0.42, 'water': 0.17}
-
-
-new_d = {i: round(price[i] * 0.85, 2) for i in price.keys()}
-print(new_d) # {'meat': 1.7, 'bread': 0.85, 'potato': 0.42, 'water': 0.17}
+# Обновление цен с 15% скидкой, используя словарное включение
+new_price = {item: round(value * 0.85, 2) for item, value in price.items()}
+print(new_price)  # Выведет: {'meat': 1.7, 'bread': 0.85, 'potato': 0.42, 'water': 0.17}
