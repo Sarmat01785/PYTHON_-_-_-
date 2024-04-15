@@ -1,6 +1,7 @@
 # Условные операторы Практика. Примеры использования модулей.
 
-import webbrowser  # Импортируем модуль webbrowser для работы с веб-браузерами.
+import webbrowser
+from urllib.parse import urljoin
 
 # Запрашиваем у пользователя ввод адреса сайта.
 website = input("Введите адрес сайта: ")
@@ -9,17 +10,19 @@ website = input("Введите адрес сайта: ")
 if "https://" in website:
     # Запускаем веб-браузер с указанным адресом.
     webbrowser.open(website)
-    print("Адрес содержит 'https://'.")
+    result = "Адрес содержит 'https://'."
 elif "www." in website:
     # Если адрес не содержит "https://" и содержит "www.", добавляем префикс "https://".
-    website = f"https://{website}"
+    website = urljoin("https://", website)
     webbrowser.open(website)
-    print("Адрес содержит 'www.' и был дополнен до полной формы.")
+    result = "Адрес содержит 'www.' и был дополнен до полной формы."
 else:
     # Если адрес не содержит ни "https://" ни "www.", добавляем префиксы "https://" и "www.".
-    website = f"https://www.{website}"
+    website = urljoin("https://www.", website)
     webbrowser.open(website)
-    print("Адрес не содержал ни 'https://', ни 'www.' и был дополнен до полной формы.")
+    result = "Адрес не содержал ни 'https://', ни 'www.' и был дополнен до полной формы."
+
+print(result)
 
 # Пример остановки программы на 5 секунд используя модуль time
 # import time
