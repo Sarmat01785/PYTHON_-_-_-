@@ -1,26 +1,24 @@
 # Условные операторы Практика. Примеры использования модулей.
 
 import webbrowser
-from urllib.parse import urljoin
-
 # Запрашиваем у пользователя ввод адреса сайта.
 website = input("Введите адрес сайта: ")
 
-# Проверяем, содержит ли введенный адрес "https://".
+# Проверяем, содержит ли введенный адрес префикс "https://".
 if "https://" in website:
-    # Запускаем веб-браузер с указанным адресом.
+    # Если адрес уже содержит префикс "https://", открываем его в браузере.
     webbrowser.open(website)
     result = "Адрес содержит 'https://'."
 elif "www." in website:
-    # Если адрес не содержит "https://" и содержит "www.", добавляем префикс "https://".
-    website = urljoin("https://", website)
+    # Если адрес содержит "www.", проверяем, начинается ли он с "www." и добавляем "https://", если это необходимо.
+    website = f"https://{website}" if not website.startswith("https://") else website
     webbrowser.open(website)
     result = "Адрес содержит 'www.' и был дополнен до полной формы."
 else:
-    # Если адрес не содержит ни "https://" ни "www.", добавляем префиксы "https://" и "www.".
-    website = urljoin("https://www.", website)
+    # Если адрес не содержит "https://" и не начинается с "www.", добавляем их.
+    website = f"https://www.{website}"
     webbrowser.open(website)
-    result = "Адрес не содержал ни 'https://', ни 'www.' и был дополнен до полной формы."
+    result = "Адрес не содержал 'https://', и был дополнен до полной формы."
 
 print(result)
 
