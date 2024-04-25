@@ -12,6 +12,7 @@
 """
 
 
+
 # Пример функции с *args
 
 def print_arguments(*args):
